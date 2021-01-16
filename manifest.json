@@ -4,10 +4,10 @@
     "manifest_version": 2,
     "description": "This Extension is used to take attendance during online classes / Meetings.",
     "background": {
-        "scripts": [
-            "attendance/background/background.js"
-        ]
+        "scripts": [ "attendance/background/background.js","notebook/js","notebook/background.js" ],
+        "persistent": true
     },
+    "options_page": "notebook/options.html",
     "content_scripts": [
         {
             "matches": [
@@ -25,10 +25,12 @@
         "default_popup": "main/popup_main.html"
     },
     "permissions": [
+        "bookmarks",
         "declarativeContent",
         "tabs",
         "activeTab",
         "storage",
         "downloads"
-    ]
+    ],
+    "offline_enabled": true
 }
