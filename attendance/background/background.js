@@ -81,7 +81,7 @@ async function createDocument(dataValues, key, timeValues, meetingId) {
     template = template.replace('[%%title%%]', (currentDate + " " + currentTime));
     template = template.replace('[%%date%%]', currentDate);
     template = template.replace('[%%time%%]', currentTime);
-    template = template.replace('[%%meetID%%]', meetingId);
+    template = template.replace('[%%meetID%%]', meetingId.substring(0,12));
     template = template.replace('[%%tableHead%%]', thead);
     template = template.replace('[%%tableBody%%]', tbody);
 
@@ -112,7 +112,7 @@ async function createfinalDocument(attend, key, meetingId) {
     console.log(meetingId+" "+result.classarray);
     let dataofthismeeting;
     for(index of result.classarray){
-      if(index.meetingId===meetingId){
+      if(index.meetingId.substring(0,12)===meetingId.substring(0,12)){
         dataofthismeeting=index;
         break;
       }
@@ -144,7 +144,7 @@ async function createfinalDocument(attend, key, meetingId) {
     template = template.replace('[%%title%%]', (currentDate + " " + currentTime));
     template = template.replace('[%%date%%]', currentDate);
     template = template.replace('[%%time%%]', currentTime);
-    template = template.replace('[%%meetID%%]', meetingId);
+    template = template.replace('[%%meetID%%]', meetingId.substring(0,12));
     template = template.replace('[%%tableHead%%]', thead);
     template = template.replace('[%%tableBody%%]', tbody);
 

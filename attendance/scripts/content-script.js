@@ -57,7 +57,7 @@ function getMeetingId() {
         console.log("New Meeting");
     }
     //meetingId = id;
-    meetingId=id.substring(0,12);
+    meetingId=id;//.substring(0,12);
     return true;
 }
 
@@ -145,7 +145,7 @@ chrome.runtime.onMessage.addListener((request, sender, response) => {
                   let indexofmeeting=-1;
                   let i;
                   for(i=0;i<obj1.length;i++){
-                    if(obj1[i].meetingId==meetingId){
+                    if(obj1[i].meetingId.substring(0,12)==meetingId.substring(0,12)){
                       indexofmeeting=i;
                       console.log(indexofmeeting);
                       flag=true;
