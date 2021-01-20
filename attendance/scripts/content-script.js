@@ -7,7 +7,7 @@ var meetingId;             // For storing Meeting ID
 var attend={};
 var status;
 let duration=1;
-
+let meetingname;
 // Function to Fetch List of Participants
 function getListOfParticipants() {
     let data = [];
@@ -107,6 +107,9 @@ chrome.runtime.onMessage.addListener((request, sender, response) => {
         if (getMeetingId()) {
             let action = request.action;
             if (action === "start") {
+              meetingname=$('.SQHmX .Jyj1Td.CkXZgc').text();
+              console.log("name of the class -------");
+              console.log(meetingname);
                 let delay = request.delay;
                 delay = parseInt(delay);
                 if (isNaN(delay)) {
@@ -180,12 +183,11 @@ chrome.runtime.onMessage.addListener((request, sender, response) => {
                     console.log(indexofmeeting);
 
                     if(indexofmeeting!==-1){
-
-                      obj1[indexofmeeting]={meetingId,totalparticipantsofclass,logging};
+                      obj1[indexofmeeting]={meetingId,meetingname,totalparticipantsofclass,logging};
                       console.log("if part");
                     }else{
                       console.log("else part");
-                      obj1.push({meetingId,totalparticipantsofclass,logging});
+                      obj1.push({meetingId,meetingname,totalparticipantsofclass,logging});
                     }
                     console.log(obj1);
                     var jsonObj = {};
@@ -194,7 +196,6 @@ chrome.runtime.onMessage.addListener((request, sender, response) => {
 
                     chrome.storage.sync.set(jsonObj, function() {
                         console.log("Saved a new array item");
-                        //console.log(result.classarray);
                     });
 
                 });
@@ -210,7 +211,12 @@ chrome.runtime.onMessage.addListener((request, sender, response) => {
                 status=1;
                 sendData();
                 sendResponse("Downloading");
-            }else if (action === "clear") {
+            }
+            else if (action === "classlist") {
+              opentab();
+                sendResponse("class list opening");
+            }
+            else if (action === "clear") {
                 chrome.storage.sync.clear();
                 clearData();
                 sendResponse("Cleared");
@@ -231,8 +237,13 @@ function sendResponse(data) {
 }
 // Function to send data to Background script
 function sendData() {
-    chrome.runtime.sendMessage({ dist: "background", dataValues: dataStorage, attend:attend, status:status ,participantNames: participantNames, timeValues: timeStamp, meetingId: meetingId }, res => {
+    chrome.runtime.sendMessage({ dist: "background", dataValues: dataStorage, attend:attend, status:status ,participantNames: participantNames, timeValues: timeStamp, meetingId: meetingId,meetingname:meetingname }, res => {
         console.log(res);
     });
     console.log('data sent');
+}
+function opentab(){
+  chrome.runtime.sendMessage({ dist: "opentab",meetingId: meetingId,meetingname:meetingname}, res => {
+      console.log(res);
+  });
 }

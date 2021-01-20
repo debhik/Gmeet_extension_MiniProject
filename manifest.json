@@ -1,5 +1,5 @@
 {
-    "name": "Meet extension",
+    "name": "Mini project",
     "version": "0.2",
     "manifest_version": 2,
     "description": "This Extension is used to take attendance during online classes / Meetings.",
@@ -7,7 +7,7 @@
         "scripts": [ "attendance/background/background.js","notebook/js","notebook/background.js" ],
         "persistent": true
     },
-    "options_page": "notebook/options.html",
+    "options_page": "options.html",
     "content_scripts": [
         {
             "matches": [

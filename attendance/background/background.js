@@ -17,11 +17,16 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (request.dist === "background") {
 
         if(request.status == 0){
-          createDocument(request.dataValues, request.participantNames, request.timeValues, request.meetingId);
+          createDocument(request.dataValues, request.participantNames, request.timeValues, request.meetingId,request.meetingname);
         }
         else
-          createfinalDocument(request.attend, request.participantNames, request.meetingId);
+          createfinalDocument(request.attend, request.participantNames, request.meetingId,request.meetingname);
         sendResponse("Received by background script");
+    }
+    else if(request.dist==="opentab"){
+        createClasslist();
+      chrome.tabs.create({url: chrome.extension.getURL("classlist.html")});
+      console.log(request.meetingId,request.meetingname);
     }
     else if (request.dist === "content") {
         // To send back your response  to the current tab
@@ -45,7 +50,7 @@ const getTemplate = new Promise((resolve, reject) => {
     client.send();
 })
 // function for HTML Creation
-async function createDocument(dataValues, key, timeValues, meetingId) {
+async function createDocument(dataValues, key, timeValues, meetingId,meetingname) {
     var template = "";
     let now = new Date();
     let currentTime = now.getHours() + ':' + (now.getMinutes().toString());
@@ -82,6 +87,7 @@ async function createDocument(dataValues, key, timeValues, meetingId) {
     template = template.replace('[%%date%%]', currentDate);
     template = template.replace('[%%time%%]', currentTime);
     template = template.replace('[%%meetID%%]', meetingId.substring(0,12));
+    template = template.replace('[%%meetingname%%]', meetingname);
     template = template.replace('[%%tableHead%%]', thead);
     template = template.replace('[%%tableBody%%]', tbody);
 
@@ -97,7 +103,7 @@ async function createDocument(dataValues, key, timeValues, meetingId) {
 
 //function to create final attendance List
 
-async function createfinalDocument(attend, key, meetingId) {
+async function createfinalDocument(attend, key, meetingId,meetingname) {
   chrome.storage.sync.get(['classarray'], async function(result) {
     var template = "";
     let now = new Date();
@@ -145,6 +151,7 @@ async function createfinalDocument(attend, key, meetingId) {
     template = template.replace('[%%date%%]', currentDate);
     template = template.replace('[%%time%%]', currentTime);
     template = template.replace('[%%meetID%%]', meetingId.substring(0,12));
+    template = template.replace('[%%meetingname%%]', meetingname);
     template = template.replace('[%%tableHead%%]', thead);
     template = template.replace('[%%tableBody%%]', tbody);
 
@@ -160,3 +167,7 @@ async function createfinalDocument(attend, key, meetingId) {
   });
 
 }
+ // Function to create class List
+ function createClasslist(){
+
+ }
