@@ -20,7 +20,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
           createDocument(request.dataValues, request.participantNames, request.timeValues, request.meetingId,request.meetingname);
         }
         else
-          createfinalDocument(request.attend, request.participantNames, request.meetingId,request.meetingname);
+          createfinalDocument(request.meetingId,request.meetingname);
         sendResponse("Received by background script");
     }
     else if(request.dist==="opentab"){
@@ -30,6 +30,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     }
       else if(request.dist==="classlist"){
         console.log("message to bg from classlist");
+        console.log(request.text);
+        createfinalDocument(request.text.substring(0,12),request.text.substring(13));
       }
     else if (request.dist === "content") {
         // To send back your response  to the current tab
@@ -118,7 +120,7 @@ async function createfinalDocument(meetingId,meetingname) {
     var tbody = "";
 
     // Time Value Header Create
-    console.log(meetingId+" "+result.classarray);
+    //console.log(meetingId+" "+result.classarray);
     let dataofthismeeting;
     for(index of result.classarray){
       if(index.meetingId.substring(0,12)===meetingId.substring(0,12)){
@@ -170,7 +172,3 @@ async function createfinalDocument(meetingId,meetingname) {
   });
 
 }
- // Function to create class List
- function createClasslist(){
-
- }
