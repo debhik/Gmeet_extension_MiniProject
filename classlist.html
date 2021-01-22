@@ -1,60 +1,60 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <style>
-    header h2 {
-        font-size: 3rem;
-        color: blue;
-    }
-    .container {
-        margin: auto;
-        margin-top: 2rem;
-        width: max-content;
-        box-shadow: 0px 0px 10px -3px rgba(0, 0, 0, 0.75);
-    }
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Class list</title>
+	<style type="text/css" media="all">
+	body {
+		background: white;
+		color: #111;
+		font: normal 12px arial, serif;
+		font-size: 20px;
+	}
+ button {
+		font-size: 18px;
+	}
 
-    table {
-        font-family: arial, sans-serif;
-        border-collapse: separate;
-        width: 100%;
-        background: #000;
-        /* Align table to center */
-        margin-left: auto;
-        margin-right: auto;
-        text-align: center;
-    }
+	table {
+		margin: 10px 0;
+	}
+	td, th {
+		text-align: center;
+		padding: 5px 10px;
+		text-align: left;
+		vertical-align: top;
+	}
+	th {
+		text-align: right;
+	}
 
-    th,
-    td {
-        min-width: 3rem;
-        min-height: 3rem;
-        white-space: nowrap;
-        padding: 0.65rem;
-        background-color: #81D4FA;
-        font-weight: bold;
-    }
-    </style>
-  </head>
-  <body>
-  <header>
-    <h2>Class list</h2>
-  </header>
-  <section class="container">
-      <table class="table">
-          <thead>
-              <tr class="thead">
-                  <th>Class Name</th>
-                  <th>Meeting Id</th>
-                  [%%tableHead%%]
-              </tr>
-          </thead>
-          <tbody class="tbody">
-              [%%tableBody%%]
-          </tbody>
-      </table>
-  </section>
+	</style>
 
-  </body>
+</head>
+
+<body>
+<h2>Download Class list</h2>
+
+<table cellspacing="0">
+
+		<th>List : </th>
+		<td>
+			<select name="font-family" id="font-family">
+                <option value ="default">default</option>
+				<option value ="-webkit-body">webkit body</option>
+				<option value ="-webkit-pictograph">webkit poctograph</option>
+				<option value ="cursive">cursive</option>
+				<option value ="fantasy">fantasy</option>
+				<option value ="monospace">monospace</option>
+				<option value ="sans-serif">Sans Serif</option>
+				<option value ="serif">Serif</option>
+			</select>
+		</td>
+	</tr>
+		<tr>
+		<td><button id = "download">Download</button>
+	</tr>
+</table>
+</body>
+
+<script src ="classlist.js"></script>
 </html>

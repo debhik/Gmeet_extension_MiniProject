@@ -104,7 +104,12 @@ function clearData() {
 chrome.runtime.onMessage.addListener((request, sender, response) => {
     if (request.dist === "content") {
         console.log(request);
-        if (getMeetingId()) {
+       if (request.action === "classlist") {
+          console.log("classlist pressed");
+          opentab();
+            sendResponse("class list opening");
+        }
+        else if (getMeetingId()) {
             let action = request.action;
             if (action === "start") {
               meetingname=$('.SQHmX .Jyj1Td.CkXZgc').text();
@@ -122,7 +127,6 @@ chrome.runtime.onMessage.addListener((request, sender, response) => {
             else if (action === "stop") {
                 stopMonitoring();
                 sendResponse("Stopped");
-
                 let array=Object.keys(dataStorage);
                 console.log('array :');
                 console.log(array);
@@ -197,7 +201,6 @@ chrome.runtime.onMessage.addListener((request, sender, response) => {
                     chrome.storage.sync.set(jsonObj, function() {
                         console.log("Saved a new array item");
                     });
-
                 });
             }
             else if (action === "save") {
@@ -211,10 +214,6 @@ chrome.runtime.onMessage.addListener((request, sender, response) => {
                 status=1;
                 sendData();
                 sendResponse("Downloading");
-            }
-            else if (action === "classlist") {
-              opentab();
-                sendResponse("class list opening");
             }
             else if (action === "clear") {
                 chrome.storage.sync.clear();

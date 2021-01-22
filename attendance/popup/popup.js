@@ -17,7 +17,9 @@ $(document).on('input', '#time', function () {
 $(document).on('input', '#criteria', function () {
     $("#ctext")[0].innerText= $("#criteria")[0].value;
 });
-$(document).on('click', '#start, #stop, #save, #clear, #savefinal, #classlist', (e) => {
+$(document).on('click', '#start, #stop, #save, #clear, #savefinal,#classlist', (e) => {
+  console.log(" +++++ ");
+  console.log(e.target.id);
     delay = $("#time")[0].value;
     c_val= $("#criteria")[0].value;
     chrome.storage.sync.set({timeText:delay});// setting value in chrome storage
@@ -29,6 +31,7 @@ $(document).on('click', '#start, #stop, #save, #clear, #savefinal, #classlist', 
       chrome.storage.sync.set({status:0});
     }
     console.log(" == " + $("#status"));
+
     //sending message to content script
     chrome.runtime.sendMessage({ dist: "content", action: e.target.id, delay: delay, criteria: c_val }, (res) => {
         console.log(res);
@@ -37,7 +40,6 @@ $(document).on('click', '#start, #stop, #save, #clear, #savefinal, #classlist', 
         }
     });
 })
-
 // Event Listener for Status
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (request.dist === "popup") {

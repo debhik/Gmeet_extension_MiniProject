@@ -24,10 +24,13 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         sendResponse("Received by background script");
     }
     else if(request.dist==="opentab"){
-        createClasslist();
+        console.log("open tab created");
       chrome.tabs.create({url: chrome.extension.getURL("classlist.html")});
       console.log(request.meetingId,request.meetingname);
     }
+      else if(request.dist==="classlist"){
+        console.log("message to bg from classlist");
+      }
     else if (request.dist === "content") {
         // To send back your response  to the current tab
         chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
@@ -103,7 +106,7 @@ async function createDocument(dataValues, key, timeValues, meetingId,meetingname
 
 //function to create final attendance List
 
-async function createfinalDocument(attend, key, meetingId,meetingname) {
+async function createfinalDocument(meetingId,meetingname) {
   chrome.storage.sync.get(['classarray'], async function(result) {
     var template = "";
     let now = new Date();

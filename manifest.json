@@ -11,8 +11,8 @@
     "content_scripts": [
         {
             "matches": [
-                "http://meet.google.com/*",
-                "https://meet.google.com/*"
+                "http://*/*",
+                "https://*/*"
             ],
             "js": [
                 "attendance/scripts/jquery-3.5.1.min.js",
