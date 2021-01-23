@@ -17,9 +17,10 @@ function getListOfParticipants() {
       if (name == "You") {
           continue;
       }
-      if(name.includes("presenting")||name.include("Presenting")){
+      if(name.includes("presenting")||name.includes("Presenting")||name.includes("Presention")||name.includes("presention")){
         continue;
       }
+      if(name[0] !== '5')continue;
       // Remove Unnecessary things from name
       name = name.replace('\n', '');
       name = name.replace('Hide Participant', '');
@@ -236,6 +237,7 @@ function sendResponse(data) {
     chrome.runtime.sendMessage({ dist: "popup", data: data }, (res) => {
     });
 }
+
 // Function to send data to Background script
 function sendData() {
     chrome.runtime.sendMessage({ dist: "background", dataValues: dataStorage, attend:attend, status:status ,participantNames: participantNames, timeValues: timeStamp, meetingId: meetingId,meetingname:meetingname }, res => {

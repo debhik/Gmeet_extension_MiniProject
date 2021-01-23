@@ -32,6 +32,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         console.log("message to bg from classlist");
         console.log(request.text);
         createfinalDocument(request.text.substring(0,12),request.text.substring(13));
+        sendResponse("Received by background script");
+        
       }
     else if (request.dist === "content") {
         // To send back your response  to the current tab
@@ -70,6 +72,9 @@ async function createDocument(dataValues, key, timeValues, meetingId,meetingname
     }
 
     // Data Value Create
+    key.sort();
+    console.log("-----------------------------------------------------s----------");
+    console.log(key);
     for (let el of key) {
         let sn = '<td>' + (key.indexOf(el) + 1) + '</td>';
         let name = '<td>' + el + '</td>';
@@ -135,6 +140,7 @@ async function createfinalDocument(meetingId,meetingname) {
     //console.log("createfinalDocument in get temp is"+ temp);
 
     // Data Value Create
+    temp.sort();
     for (let el of temp) {
       let sn = '<td>' + (temp.indexOf(el) + 1) + '</td>';
       let name = '<td>' + el + '</td>';
