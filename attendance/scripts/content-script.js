@@ -181,15 +181,13 @@ chrome.runtime.onMessage.addListener((request, sender, response) => {
                     let now = new Date();
                     let currentDate = now.getFullYear() + '-' + (now.getMonth() + 1).toString() + '-' + now.getDate().toString();
                     var element = {};
-                    console.log("before------------------");
-                    console.log(logging);
+
                     element.currentDate=currentDate;
                     element.attend=attend;
                     logging.push(element);
-                    console.log("after-------------------");
+                    console.log("logging : ");
                     console.log(logging);
                     console.log(indexofmeeting);
-
                     if(indexofmeeting!==-1){
                       obj1[indexofmeeting]={meetingId,meetingname,totalparticipantsofclass,logging};
                       console.log("if part");

@@ -15,7 +15,6 @@ chrome.declarativeContent.onPageChanged.removeRules(undefined, function () {
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     console.log("Data Received", request);
     if (request.dist === "background") {
-
         if(request.status == 0){
           createDocument(request.dataValues, request.participantNames, request.timeValues, request.meetingId,request.meetingname);
         }
@@ -27,13 +26,12 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         console.log("open tab created");
       chrome.tabs.create({url: chrome.extension.getURL("classlist.html")});
       console.log(request.meetingId,request.meetingname);
+      sendResponse("Received by background script");
     }
       else if(request.dist==="classlist"){
-        console.log("message to bg from classlist");
         console.log(request.text);
         createfinalDocument(request.text.substring(0,12),request.text.substring(13));
         sendResponse("Received by background script");
-        
       }
     else if (request.dist === "content") {
         // To send back your response  to the current tab
@@ -112,7 +110,6 @@ async function createDocument(dataValues, key, timeValues, meetingId,meetingname
 
 
 //function to create final attendance List
-
 async function createfinalDocument(meetingId,meetingname) {
   chrome.storage.sync.get(['classarray'], async function(result) {
     var template = "";
@@ -123,9 +120,7 @@ async function createfinalDocument(meetingId,meetingname) {
 //createfinalDocument loop(el in log){loop(el2 in totalparticipantsofclass){log[el][el2]===P}
     var thead = "";
     var tbody = "";
-
     // Time Value Header Create
-    //console.log(meetingId+" "+result.classarray);
     let dataofthismeeting;
     for(index of result.classarray){
       if(index.meetingId.substring(0,12)===meetingId.substring(0,12)){
@@ -173,8 +168,5 @@ async function createfinalDocument(meetingId,meetingname) {
       url: url,
       filename: filename
     });
-
-
   });
-
 }
