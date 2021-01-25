@@ -36,7 +36,7 @@ var Utils = {
     addLineBreaks: function(inStr) {
         return inStr.replace(/\r\n?|\n/g, "<br />");
     },
-    trackGoogleEvent: function(eventType) {
+    /*trackGoogleEvent: function(eventType) {
         if (eventType == "NOTE_CREATION") {
             _gaq.push(['_trackEvent', "NoteCreated", 'clicked', "NoteCreated"]);
         } else if (eventType == "NOTE_SOFT_DELETION") {
@@ -58,7 +58,7 @@ var Utils = {
         } else if (eventType == "INSTALLED") {
             _gaq.push(['_trackEvent', "Installed", 'clicked', "Installed"]);
         }
-    },
+    },*/
     getDisplayableContent: function(urlKey) {
         return urlKey.replace("data:text/plain;charset=UTF-8,", "");
 
