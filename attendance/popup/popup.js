@@ -30,11 +30,9 @@ $(document).on('click', '#start, #stop, #save, #clear, #savefinal,#classlist', (
     else{
       chrome.storage.sync.set({status:0});
     }
-    console.log(" == " + $("#status"));
 
     //sending message to content script
     chrome.runtime.sendMessage({ dist: "content", action: e.target.id, delay: delay, criteria: c_val }, (res) => {
-        console.log(res);
         if (!res) {
             $(".status")[0].innerText = "Error Connecting";
         }

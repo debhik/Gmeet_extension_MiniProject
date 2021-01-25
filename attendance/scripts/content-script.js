@@ -52,7 +52,7 @@ function logParticipantsData() {
 function getMeetingId() {
     let id = window.location.href;
     id = id.split('/')[3];
-    if (id === "") {
+    if (id[3] !== '-' || id[8] !== '-') {
         console.log("Not a Meeting");
         return false;
     }
@@ -67,10 +67,15 @@ function getMeetingId() {
 
 // Function to Start Monitoring
 function startMonitoring(time = 300000) {
+    dataStorage = {};
+    participantNames = [];
+    timeStamp = [];
+    attend={};
+    duration=1;
     stopMonitoring();
     // getMeetingId returns false if not a meeting
     if (!getMeetingId()) {
-        console.log("Not Starting Service. Because it is not a Meeting.");
+
         return false;
     }
     logParticipantsData(); // Logs data on Start
@@ -109,9 +114,8 @@ chrome.runtime.onMessage.addListener((request, sender, response) => {
     if (request.dist === "content") {
         console.log(request);
        if (request.action === "classlist") {
-          console.log("classlist pressed");
           opentab();
-            sendResponse("class list opening");
+          sendResponse("class list opening");
         }
         else if (getMeetingId()) {
             let action = request.action;
@@ -149,7 +153,6 @@ chrome.runtime.onMessage.addListener((request, sender, response) => {
                   console.log(result.classarray);
                   let obj1=[];
                   if(result.classarray!==undefined){
-                    console.log("line 141 not undef");
                     obj1=result.classarray;
                   }
                   let flag=false;
@@ -158,7 +161,6 @@ chrome.runtime.onMessage.addListener((request, sender, response) => {
                   for(i=0;i<obj1.length;i++){
                     if(obj1[i].meetingId.substring(0,12)==meetingId.substring(0,12)){
                       indexofmeeting=i;
-                      console.log(indexofmeeting);
                       flag=true;
                       break;
                     }
@@ -190,9 +192,7 @@ chrome.runtime.onMessage.addListener((request, sender, response) => {
                     console.log(indexofmeeting);
                     if(indexofmeeting!==-1){
                       obj1[indexofmeeting]={meetingId,meetingname,totalparticipantsofclass,logging};
-                      console.log("if part");
                     }else{
-                      console.log("else part");
                       obj1.push({meetingId,meetingname,totalparticipantsofclass,logging});
                     }
                     console.log(obj1);
@@ -224,7 +224,10 @@ chrome.runtime.onMessage.addListener((request, sender, response) => {
             }
         }
         else {
-            sendResponse("Not a Meeting");
+          chrome.storage.sync.set({status:0});
+          alert("Service not available. Error: Not a valid Meeting.")
+          console.log("Not Starting Service. Because it is not a Meeting.");
+          sendResponse("Not a Meeting");
         }
         response("Received by Content Script");
     }

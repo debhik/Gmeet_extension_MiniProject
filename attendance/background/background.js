@@ -71,8 +71,6 @@ async function createDocument(dataValues, key, timeValues, meetingId,meetingname
 
     // Data Value Create
     key.sort();
-    console.log("-----------------------------------------------------s----------");
-    console.log(key);
     for (let el of key) {
         let sn = '<td>' + (key.indexOf(el) + 1) + '</td>';
         let name = '<td>' + el + '</td>';
@@ -116,8 +114,6 @@ async function createfinalDocument(meetingId,meetingname) {
     let now = new Date();
     let currentTime = now.getHours() + ':' + (now.getMinutes().toString());
     let currentDate = now.getFullYear() + '-' + (now.getMonth() + 1).toString() + '-' + now.getDate().toString();
-//log[date]={attend}
-//createfinalDocument loop(el in log){loop(el2 in totalparticipantsofclass){log[el][el2]===P}
     var thead = "";
     var tbody = "";
     // Time Value Header Create
@@ -132,7 +128,6 @@ async function createfinalDocument(meetingId,meetingname) {
       thead += '<th>' + index.currentDate + '</th>\n';
     }
     var temp = dataofthismeeting.totalparticipantsofclass;
-    //console.log("createfinalDocument in get temp is"+ temp);
 
     // Data Value Create
     temp.sort();
