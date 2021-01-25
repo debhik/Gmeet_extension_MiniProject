@@ -150,7 +150,7 @@ View.prototype.initialize = function() {
             });
         } else {
             //No bookmark found, hence create one
-            Utils.trackGoogleEvent("INSTALLED");
+            //Utils.trackGoogleEvent("INSTALLED");
             chrome.bookmarks.create({ "title": "CuteNotepad" }, function(newFolder) {
 
                 content = self.model.data && self.model.data.content || "";
@@ -353,7 +353,7 @@ View.prototype.updateDisplayOrder = function() {
             displayOrder: iter
         }
     });
-    Utils.trackGoogleEvent("NOTE_REORDERED");
+    //Utils.trackGoogleEvent("NOTE_REORDERED");
     localStorage['orderMap'] = JSON.stringify(this.orderMap);
 };
 View.prototype.loadNotebyId = function(bookmarkId, preview) {
@@ -464,7 +464,7 @@ View.prototype.bindEvents = function() {
             });
         });
 
-        Utils.trackGoogleEvent("NOTE_CREATION");
+       // Utils.trackGoogleEvent("NOTE_CREATION");
     });
 
     this.$el.find(".collapse-action").on("click", function() {
@@ -474,7 +474,7 @@ View.prototype.bindEvents = function() {
             self.$el.find(".rpanel").animate({ width: "620px" });
             self.model.collapsed = false;
         } else {
-            Utils.trackGoogleEvent("NOTE_FULL_MODE");
+            //Utils.trackGoogleEvent("NOTE_FULL_MODE");
             $this.removeClass("collapse-arrow").addClass("expand-arrow");
             $(".rpanel").animate({ width: "100%" });
             self.model.collapsed = true;
@@ -500,7 +500,7 @@ View.prototype.bindEvents = function() {
 
         chrome.bookmarks.move(self.model.selectedNoteId, { parentId: self.model.trashedFolderData.id }, function(data) {
 
-            Utils.trackGoogleEvent("NOTE_SOFT_DELETION");
+            //Utils.trackGoogleEvent("NOTE_SOFT_DELETION");
 
             self.renderFolders(function(bookmarksTree) {
 
@@ -534,7 +534,7 @@ View.prototype.bindEvents = function() {
         self.$el.find(".folder-search").val("");
         self.$el.find(".trashed").toggleClass("active");
         if (!self.$el.find(".trash").hasClass("expanded")) {
-            Utils.trackGoogleEvent("NOTE_BIN_VISITED");
+           // Utils.trackGoogleEvent("NOTE_BIN_VISITED");
             self.mode = "NOTES_INACTIVE";
             var $backArrow = $("<span>").attr({ "class": "backArrow" })
                 .css({
@@ -593,7 +593,7 @@ View.prototype.bindEvents = function() {
         $toRestore.remove();
 
         chrome.bookmarks.move(noteId, { parentId: self.model.bookmarkData.id }, function(data) {
-            Utils.trackGoogleEvent("NOTE_RESTORATION");
+           // Utils.trackGoogleEvent("NOTE_RESTORATION");
             title = data.title && self.getNoteTitleFromContent(data.title.substr, 10);
             $('.folder-items').append("<div class = 'folder-name' data-bid = '" + data.id + "'>" + title + "</div>");
         });
@@ -608,7 +608,7 @@ View.prototype.bindEvents = function() {
             return item.id !== noteId;
         });
         chrome.bookmarks.remove(noteId, function() {
-            Utils.trackGoogleEvent("NOTE_HARD_DELETION");
+           // Utils.trackGoogleEvent("NOTE_HARD_DELETION");
             self.setContent("");
             $noteToDelete.remove();
         })
