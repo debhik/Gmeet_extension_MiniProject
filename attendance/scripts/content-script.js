@@ -17,8 +17,9 @@ function getListOfParticipants() {
       if (name == "You") {
           continue;
       }
-      if(name.includes("presenting")||name.includes("Presenting")||name.includes("Presention")||name.includes("presention")){
+         if(name.includes("presenting")||name.includes("Presenting")||name.includes("Presention")||name.includes("presention")||name.includes("joined")||name.includes("Joined")){
         continue;
+      
       }
       if(name[0] !== '5')continue;
       // Remove Unnecessary things from name
