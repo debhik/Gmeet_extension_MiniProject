@@ -1,7 +1,7 @@
 
 chrome.storage.sync.get(['classarray'], function(result) {
   let obj=[];
-  if(result.classarray===undefined){
+  if(result.classarray===undefined||result.classarray.length<1){
     alert("Seems like vacation! No classes saved.");
   }
   else{
