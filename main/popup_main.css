@@ -20,7 +20,7 @@ a.button {
     text-align: center;
    text-decoration: none;
 
-  display: flex;
+  display: inline-flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -43,4 +43,11 @@ a.button {
 a.button:hover {
   background-color: #4CAF50;
   color: white;
+}
+.icon {
+    background: url('icon32.png');
+    height: 20px;
+    width: 20px;
+    display: inline;
+
 }
