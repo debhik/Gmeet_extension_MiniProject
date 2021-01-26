@@ -42,7 +42,6 @@ Actions.prototype.getContent = function(type) {
     return value;
 }
 Actions.prototype.print = function() {
-    Utils.trackGoogleEvent("NOTE_PRINTED");
     chrome.tabs.create({ url: window.location.href + "?print=true" });
 };
 
@@ -56,5 +55,4 @@ Actions.prototype.download = function(text, name, type) {
     }
     a.download = name;
     a.click();
-    Utils.trackGoogleEvent("NOTE_DOWNLOADED");
 };
