@@ -218,10 +218,12 @@ chrome.runtime.onMessage.addListener((request, sender, response) => {
                 sendResponse("Downloading");
             }
             else if (action === "clear") {
+              if(confirm("Are you sure you want to delete everything ?")==true){
                 chrome.storage.sync.clear();
                 clearData();
                 sendResponse("Cleared");
             }
+          }
         }
         else {
           chrome.storage.sync.set({status:0});
