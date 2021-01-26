@@ -2,7 +2,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-        font-family: sans-serif;
+    font-family: sans-serif;
     align-items: center;
     width: max-content;
     height: max-content;
@@ -17,7 +17,7 @@ body {
 
 button {
     justify-content: center;
-        font-family: sans-serif;
+    
     align-items: center;
     padding: 0.2rem;
     width: 7rem;
